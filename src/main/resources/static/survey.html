@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>“满意10分”微信有奖问卷调查</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/weui.css">
+    <link rel="stylesheet" href="./css/animate.min.css">
+    <link rel="stylesheet" href="./css/style_zxdt_xm.css">
+    <link rel="stylesheet" href="./css/css.css">
+    <script src="./js/jquery.min.js" type="text/javascript"></script>
+    <script src="./js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="./js/cus/dialog_am.js"></script>
+    <script src="./js/cus/dialog2.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <!--[if lt IE 9]>
+    <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="./js/cus/bootstrap.js"></script>
+    <script src="./js/cus/public.js"></script>
+    <script src="./js/layer.js"></script>
+    <link rel="stylesheet" href="./css/layer1.css"/>
+
+    <link rel="stylesheet" href="./css/base.css"/>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/adaptive-version3.js"></script>
+    <script>
+            // 设计图宽度
+            window['adaptive'].desinWidth = 750;
+            // body 字体大小
+            window['adaptive'].baseFont = 18;
+            
+            // 显示最大宽度 
+            window['adaptive'].maxWidth = 750;
+            
+            // 初始化
+            window['adaptive'].init();
+
+    </script>
+    <style type="text/css">
+            .tm .voters {
+                background:url(images/zxdt_xm_2.png) center top no-repeat;
+                padding: 10px;
+            }
+            .tm .voter {
+                position: relative;
+                margin: 10px 0;
+                background:url(images/zxdt_xm_10.png) 6% 5px no-repeat;
+                background-size: 3% auto; 
+            }
+            .tm .voter_sel {
+                position: relative;
+                margin: 10px 0;
+                background:url(images/zxdt_xm_11.png) 6% 5px no-repeat;
+                background-size: 3% auto; 
+            }
+
+    </style>
+</head>
+
+<body>
+
+<!--透明背景-->
+<div class="flexBg" style="display: block;display: none;"></div>
+<!--弹窗 -->
+<div class="comPop" id="loginDiv" style="display: none;">
+    <h3 class="popTitle">输入手机号码<a href="javascript:Hidepop()"></a></h3>
+    <div class="comPop_info">
+        <div class="bind_item">
+            <dl>
+                <dt>手机号码</dt>
+                <dd><input type="tel" name="" id="mobile" value="" class="bindPut" placeholder="请输入11位手机号码"/></dd>
+            </dl>
+            <dl>
+                <dt>短信验证码</dt>
+                <dd>
+                    <input type="text" name="" id="checkCode" value="" class="bindPut w50" style="width: 58%;"
+                           placeholder="请输入4位验证码"/>
+                    <a href="javascript:void(0);" class="btnGets" onclick="sendCode();" id="sendBtn">获取</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="PopBtn">
+        <a href="javascript:void(0);" class="psure" onclick="login();" id="submitBtn">提交</a>
+    </div>
+</div>
+
+
+<div class="body" id="listhome">
+    <form id="form1" action="" method="post" onsubmit="return checkform()">
+        <input name="step" type="hidden" value="2"/>
+        <input type="hidden" id="right" name="right" value="0"/>
+        <input id="anlist" name="anlist" type="hidden" value=""/>
+
+        <div style="background:url(images/zxdt_xm_1.png) center center no-repeat;background-size: 100% 100%;"
+             class="clearfix">
+            <div class="pull-left pieces3">
+                第 <span id="nowcount"></span> 题
+            </div>
+            <span class="pull-right pieces3">
+                        共 <span id="allcount"></span> 题
+                    </span>
+        </div>
+        <div style="background:#80CEEB url(images/zxdt_xm_4.gif)" id="content">
+
+            <div style="background:url(images/zxdt_xm_8.png) bottom center no-repeat; background-size: 100% auto;">
+
+                <div class="tm" id="tmdiv0" style="display:none">
+                    <input type="hidden" id="VOTERTYPE0" value="1"/>
+                    <input type="hidden" id="Nextlist0" value=""/>
+                    <input type="hidden" id="NextOhter0" value=""/>
+                    <div class="title bifont" style="font-size: 16px;">
+                        <p class="MsoListParagraph" style="margin-left:21.0pt;text-indent:-21.0pt;font-size:20px;"><img
+                                src="images/zxdt_xm_3.png" class="img">&nbsp;&nbsp;
+                            请您对<b>移动宽带</b>的【<b style="color:red;">整体表现</b>】打分：
+                            <!--<b style="color:red;">10分</b>表示<b style="color:red;">满意</b>，<span>8</span>分及以下表示不满意。<span></span>-->
+                        </p>
+                    </div>
+                    <div class="voters">
+                        <div style="height:60px;line-height:60px;">&nbsp;</div>
+                        <ul id="select_0">
+
+                            <li class="voter clearfix" id="an_0_0">
+                                <div class="pull-left index" onclick="selectan(0)">
+                                    A
+                                </div>
+                                <div class="pull-right myoption">
+                                    <div onclick="selectan(0)">
+                                        <b style="color:red;font-size: 19px;">10分 = 满意</b>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="voter clearfix" id="an_0_1">
+                                <div class="pull-left index" onclick="selectan(1)">
+                                    B
+                                </div>
+                                <div class="pull-right myoption">
+                                    <div onclick="selectan(1)" style="font-size: 16px;">9分及以下 = 不满意</div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div style="padding: 10px 30%;">
+                            <input type="button" class="button" value="下一题" onclick="oknext()"/>
+                        </div>
+
+                    </div>
+                    <div style="height:110px;line-height:110px;">&nbsp;</div>
+                </div>
+
+
+                <div class="tm" id="tmdiv1" style="display:none">
+                    <input type="hidden" id="VOTERTYPE1" value="1"/>
+                    <input type="hidden" id="Nextlist1" value=""/>
+                    <input type="hidden" id="NextOhter1" value=""/>
+                    <div class="title bifont" style="font-size: 16px;">
+                        <p class="MsoListParagraph" style="margin-left:21.0pt;text-indent:-21.0pt;font-size:20px;"><img
+                                src="images/zxdt_xm_3.png" class="img">&nbsp;&nbsp;
+                            请您对<b>移动宽带</b>的【<b style="color:red;">上网质量</b>】打分：
+                        </p>
+                    </div>
+                    <div class="voters">
+                        <div style="height:60px;line-height:60px;">&nbsp;</div>
+                        <ul id="select_1">
+
+                            <li class="voter clearfix" id="an_1_0">
+                                <div class="pull-left index" onclick="selectan(0)">
+                                    A
+                                </div>
+                                <div class="pull-right myoption">
+                                    <div onclick="selectan(0)">
+                                        <b style="color:red;font-size: 19px;">10分 = 满意</b>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="voter clearfix" id="an_1_1">
+                                <div class="pull-left index" onclick="selectan(1)">
+                                    B
+                                </div>
+                                <div class="pull-right myoption">
+                                    <div onclick="selectan(1)" style="font-size: 16px;">9分及以下 = 不满意</div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div style="padding: 10px 30%;">
+                            <input type="button" class="button" value="下一题" onclick="oknext()"/>
+                        </div>
+
+                    </div>
+                    <div style="height:110px;line-height:110px;">&nbsp;</div>
+                </div>
+
+
+                <div class="tm" id="tmdiv2" style="display:none">
+                    <input type="hidden" id="VOTERTYPE2" value="1"/>
+                    <input type="hidden" id="Nextlist2" value=""/>
+                    <input type="hidden" id="NextOhter2" value=""/>
+                    <div class="title bifont" style="font-size: 16px;">
+                        <p class="MsoListParagraph" style="margin-left:21.0pt;text-indent:-21.0pt;font-size:20px;"><img
+                                src="images/zxdt_xm_3.png" class="img">&nbsp;&nbsp;
+                            请您对<b>移动宽带服务</b>【<b style="color:red;">故障维修、咨询投诉</b>】打分：
+                        </p>
+                    </div>
+                    <div class="voters">
+                        <div style="height:60px;line-height:60px;">&nbsp;</div>
+                        <ul id="select_2">
+
+                            <li class="voter clearfix" id="an_2_0">
+                                <div class="pull-left index" onclick="selectan(0)">
+                                    A
+                                </div>
+                                <div class="pull-right myoption">
+                                    <div onclick="selectan(0)">
+                                        <b style="color:red;font-size: 19px;">10分 = 满意</b>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="voter clearfix" id="an_2_1">
+                                <div class="pull-left index" onclick="selectan(1)">
+                                    B
+                                </div>
+                                <div class="pull-right myoption">
+                                    <div onclick="selectan(1)" style="font-size: 16px;">9分及以下 = 不满意</div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div style="padding: 10px 30%;">
+                            <input type="button" class="button" value="下一题" onclick="oknext()"/>
+                        </div>
+
+                    </div>
+                    <div style="height:110px;line-height:110px;">&nbsp;</div>
+                </div>
+
+
+                <div class="tm" id="tmdiv3" style="display:none">
+                    <input type="hidden" id="VOTERTYPE3" value="1"/>
+                    <input type="hidden" id="Nextlist3" value=""/>
+                    <input type="hidden" id="NextOhter3" value=""/>
+                    <div class="title bifont" style="font-size: 16px;">
+                        <p class="MsoListParagraph" style="margin-left:21.0pt;text-indent:-21.0pt;font-size:20px;"><img
+                                src="images/zxdt_xm_3.png" class="img">&nbsp;&nbsp;
+                            请您对<b>移动宽带业务</b>【<b style="color:red;">资费、宣传、办理</b>】打分：
+                        </p>
+                    </div>
+                    <div class="voters">
+                        <div style="height:60px;line-height:60px;">&nbsp;</div>
+                        <ul id="select_3">
+
+                            <li class="voter clearfix" id="an_3_0">
+                                <div class="pull-left index" onclick="selectan(0)">
+                                    A
+                                </div>
+                                <div class="pull-right myoption">
+                                    <div onclick="selectan(0)">
+                                        <b style="color:red;font-size: 19px;">10分 = 满意</b>
+                                    </div>
+
+                                </div>
+                            </li>
+
+                            <li class="voter clearfix" id="an_3_1">
+                                <div class="pull-left index" onclick="selectan(1)">
+                                    B
+                                </div>
+                                <div class="pull-right myoption">
+                                    <div onclick="selectan(1)" style="font-size: 16px;">9分及以下 = 不满意</div>
+
+                                </div>
+                            </li>
+
+                        </ul>
+                        <div style="padding: 10px 30%;">
+                            <input type="button" class="button" value="提交" onclick="oknext()"/>
+                        </div>
+
+                    </div>
+                    <div style="height:110px;line-height:110px;">&nbsp;</div>
+                </div>
+
+                <!--
+                <div class="tm" id="tmdiv1" style="display:none">
+                    <input type="hidden" id="VOTERTYPE1" value="2" />
+                    <input type="hidden" id="Nextlist1" value="" />
+                    <input type="hidden" id="NextOhter1" value="0" />
+                    <div class="title bifont" style="font-size: 16px;">
+                        <p class="MsoListParagraph" style="margin-left:21.0pt;text-indent:-21.0pt;"><img src="images/zxdt_xm_3.png" class="img">&nbsp;&nbsp;
+为提供更优质的服务，请告诉我们您希望漳州移动在哪些方面可以表现更好：</p>
+                    </div>
+                    <div class="voters">
+                        <div style="height:60px;line-height:60px;">&nbsp;</div>
+                        <ul id="select_1">
+                        
+                                <li class="voter clearfix" id="an_1_0">
+                                    <div class="pull-left index" onclick="selectan(0)">
+                                        A
+                                    </div>
+                                    <div class="pull-right myoption">
+                                        <div onclick="selectan(0)" style="font-size: 13px;">网络通话</div>
+                                        
+                                    </div>
+                                </li>
+                                
+                                <li class="voter clearfix" id="an_1_1">
+                                    <div class="pull-left index" onclick="selectan(1)">
+                                        B
+                                    </div>
+                                    <div class="pull-right myoption">
+                                        <div onclick="selectan(1)" style="font-size: 13px;">手机上网</div>
+                                        
+                                    </div>
+                                </li>
+
+                                <li class="voter clearfix" id="an_1_2">
+                                    <div class="pull-left index" onclick="selectan(2)">
+                                        C
+                                    </div>
+                                    <div class="pull-right myoption">
+                                        <div onclick="selectan(2)" style="font-size: 13px;">移动宽带</div>
+                                        
+                                    </div>
+                                </li>
+                                
+                                <li class="voter clearfix" id="an_1_3">
+                                    <div class="pull-left index" onclick="selectan(3)">
+                                        D
+                                    </div>
+                                    <div class="pull-right myoption">
+                                        <div onclick="selectan(3)" style="font-size: 13px;">资费套餐</div>
+                                        
+                                    </div>
+                                </li>
+
+                                <li class="voter clearfix" id="an_1_4">
+                                    <div class="pull-left index" onclick="selectan(4)">
+                                        E
+                                    </div>
+                                    <div class="pull-right myoption">
+                                        <div onclick="selectan(4)" style="font-size: 13px;">营业厅服务</div>
+                                        
+                                    </div>
+                                </li>
+                        </ul>
+                        <div style="padding: 10px 30%;">
+                            <input type="button" class="button" value="提交" onclick="oknext()" />
+                        </div>
+                        
+                    </div>
+                    <div style="height:110px;line-height:110px;">&nbsp;</div>
+                </div>-->
+
+            </div>
+        </div>
+        <input name="tmlist" type="hidden" value="185,186"/>
+    </form>
+</div>
+<script type="application/javascript">
+    var arr=new Array();
+    arr[0]=new Array();
+    arr[1]=new Array();
+    arr[2]=new Array();
+    arr[3]=new Array();
+
+    var tmcount=4;
+    var nowshow=-1;
+    var maxtime =0;
+    var cansel=true;
+    var description="";
+
+    var cookieKey = "C_OPENID_";
+    var  accountTempPO = null;
+    var  activityPO  = null;
+    var  actId = "ACT44888";
+    var login_mobile = "";
+
+$(document).ready(function(){
+    //判断是否有缓存
+    $.ajax({
+           type:"POST",
+           url: "survey",
+           data:{ "id" : actId},
+           cache:false,
+           async:false,
+           dataType: "json",
+           success: function(result){
+                   if ("0" != result.code) {
+                       return;
+                   }
+                    activityPO  = result.data.tbZzydActivityPO;
+                   //检查cookie ，用户是否登陆过
+                   var  cookieValue = $.cookie(cookieKey);
+                   if(isEmpty(cookieValue)){
+                       $(".flexBg, #loginDiv").show();
+                   }else{
+                       openid = cookieValue.split(",")[0];
+                       login_mobile = cookieValue.split(",")[1];
+                       $('.flexBg, #loginDiv').hide();
+                   }
+            },
+            error : function() {
+                layer.open({
+                             content:"<span style=\"color:black;\">网络开小差^^</span>"
+                             ,btn: '确定'
+                           });
+            }
+    }); 
+});
+
+var  secondnum = 60;
+var clock = '';
+    //获取验证码
+function  sendCode(){
+     mobile = $("#mobile").val();
+     if(isEmpty(mobile)){
+         layer.open({
+                     content:"<span style=\"color:black;\">请输入手机号码</span>"
+                     ,btn: '确定'
+                   });
+         return ;
+     }
+     $("#sendBtn").removeAttr("onclick");
+    $.ajax({
+           type:"POST",
+           url: "validCode",
+           data:{"mobile": mobile},
+           cache:false,
+           dataType: "json",
+           success: function(result){
+                   if ("0" != result.code) {
+                       layer.open({
+                                 content:"<span style=\"color:black;\">获取验证码失败</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   } 
+                   var paramEx = result.data.paramEx;
+                   if(paramEx == "0"){
+                       layer.open({
+                                 content:"<span style=\"color:black;\">请输入手机号码</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   }
+                   var  sendError = result.data.sendError;
+                   if(sendError == "0"){
+                       layer.open({
+                                 content:"<span style=\"color:black;\">获取验证码失败</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   }
+                   var  send = result.data.send;
+                   if(send == "1"){  //发送成功
+                       clock = setInterval(doLoop, 1000); //一秒执行一次
+                   }
+                   
+            },
+            error : function() {
+                layer.open({
+                             content:"<span style=\"color:black;\">网络开小差^^</span>"
+                             ,btn: '确定'
+                           });
+            }
+        }); 
+}
+
+function doLoop() {
+    secondnum--;
+    if(secondnum > 0){
+            $("#sendBtn").text(secondnum+'s' );
+    }else{
+      clearInterval(clock); //清除js定时器
+       //将提交按钮恢复点击
+       $("#sendBtn").attr("onclick" , "sendCode();");;
+       $("#sendBtn").text("获取");
+       secondnum = 60; //重置时间
+     }
+}
+
+function  checkValue(){
+     mobile = $("#mobile").val();
+     if(isEmpty(mobile)){
+         layer.open({
+                     content:"<span style=\"color:black;\">请输入手机号码</span>"
+                     ,btn: '确定'
+                   });
+         return false;
+     }
+     var checkCode = $("#checkCode").val();
+     if(isEmpty(checkCode)){
+         layer.open({
+                     content:"<span style=\"color:black;\">请输入验证码</span>"
+                     ,btn: '确定'
+                   });
+         return false;
+     }
+     return  true;
+}
+//登陆
+function  login(){
+ if(checkValue()){
+     var mobile = $("#mobile").val(); 
+     var checkCode = $("#checkCode").val();
+     var channel = activityPO.channelId;
+     //将提交按钮设置为不可点击
+     $("#submitBtn").removeAttr("onclick");
+     $.ajax({
+           type:"POST",
+           url: "login",
+           data:{"actId" : actId , "mobile": mobile , "checkCode" : checkCode ,  "channelID":channel},
+           cache:false,
+           dataType: "json",
+           success: function(result){
+                   //将提交按钮恢复点击
+                   $("#submitBtn").attr("onclick" , "login();");
+                   
+                   if ("0" != result.code) {
+                       layer.open({
+                                 content:"<span style=\"color:black;\">提交失败</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   } 
+                   
+                   var  codeNullError = result.data.codeNullError;
+                   if(codeNullError == "0"){
+                       layer.open({
+                                 content:"<span style=\"color:black;\">请重新获取验证码</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   }
+                   
+                   var  codeError = result.data.codeError;
+                   if(codeError == "0"){
+                       layer.open({
+                                 content:"<span style=\"color:black;\">验证码错误</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   }
+                  
+                   openid = result.data.openid;
+                    $.cookie(cookieKey , (openid + "," + mobile) , {expires: 365});
+                   //保存手机号码
+                   login_mobile = mobile;
+                   Hidepop();
+            },
+            error : function() {
+                layer.open({
+                             content:"<span style=\"color:black;\">网络开小差^^</span>"
+                             ,btn: '确定'
+                           });
+            }
+    }); 
+ }
+}
+
+function isEmpty(message){
+    return  message=="" || message==null || message==undefined ;
+}
+
+function Hidepop(){
+    $('.flexBg, #loginDiv').hide();
+    $('#loginDiv').removeClass('bounceIn');
+}
+
+    
+function oksubmit()//提交
+{
+
+    $.ajax({
+           type:"POST",
+           url: "recordSelect",
+           data:{
+                    "tbWxZxdtPO.mobile":login_mobile,
+                    "tbWxZxdtPO.description":description,
+           },
+           cache:false,
+           dataType: "json",
+           success: function(result){
+                    var time = result.data.time;
+                       layer.open({
+                            content:"<span style=\"color:black;font-size:20px;\">感谢有您，满意10分！",
+                            btn:"前往抽奖",
+                            shadeClose:false,
+                            yes:function(index){
+                                if(time=="1")
+                                    location.href="lottery?actId=ACT58524";
+                                else if(time=="2")
+                                    location.href="lottery?actId=ACT43992";
+                                else
+                                    location.href="lottery?actId=ACT13347";
+                            }
+                       });
+               },
+            error:function(){
+                layer.open({
+                     content:"网络开小差^^"
+                     ,btn: '确定'
+                   });
+            }
+        });                      
+ }
+
+function getindexfromsort(sort)
+{
+    for (i=0;i<arr.length;i++)
+    {
+        if (arr[i][1]==sort)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+//显示指定题目
+function showtmbysort(sort)
+{
+    if(sort=="0"){
+        //结束答题
+        oksubmit();
+    }
+    else if(sort==""){
+        //下一题
+        nexttm();
+    }
+    else{
+        //下一题
+        showtm(getindexfromsort(sort));
+    }
+}
+//显示下一题
+function nexttm()
+{
+    showtm(nowshow+1);
+}
+//显示指定题目
+function showtm(index)
+{
+    //判断是否为最后一题并提交
+    if(index>=tmcount)
+    {
+        oksubmit();
+        return;
+    }
+    //把当前题目显示出来
+    if(index==0){
+        $("#tmdiv" + index).show();                        
+    }else{
+        $("#tmdiv" + index).css("display","");
+        $("#tmdiv" + nowshow).css("display","none");
+        $("#tmdiv" + index).addClass('animated bounceInLeft');
+    }
+    //更新题号显示
+    nowshow=index;
+    $("#nowcount").html(index+1);
+    $("#allcount").html(tmcount);                        
+    cansel=true;
+}
+//点击按钮
+function oknext()
+{
+    var VOTERTYPE=parseInt($("#VOTERTYPE"+nowshow).val());//单选或多选
+    var tmid=arr[nowshow][0];
+    var value=tmid +"<2>";
+    var selvalue=",";
+    if(VOTERTYPE==1||VOTERTYPE==2)//单选和多选
+    {   
+        //若用户第一题选择A，则直接跳转
+        /*if($("#an_0_0").hasClass("voter_sel")){
+            $.ajax({
+               type:"POST",
+               url: "/zzydwap/zxdt/zxdtAction!checktime.action",
+               cache:false,
+               dataType: "json",
+               success: function(result){
+                        var time = result.data.time;
+                           layer.open({
+                                content:"<span style=\"color:black;\">感谢有您，满意10分</span>",
+                                btn:"前往抽奖",
+                                shadeClose:false,
+                                yes:function(index){
+                                    if(time=="1")
+                                        location.href="lottery?actId=ACT40396";
+                                    else if(time=="2")
+                                        location.href="lottery?actId=ACT79177";
+                                    else
+                                        location.href="lottery?actId=ACT44888";
+                                }
+                           });
+                   },
+                error:function(){
+                    layer.open({
+                         content:"网络开小差^^"
+                         ,btn: '确定'
+                       });
+                }
+            });                      
+       
+            return false;
+        }*/
+
+        //记录用户选项
+        var olis=$("#select_"+nowshow).children() ;
+        var selcount=0;
+        for(var i=0;i<olis.length;i++){
+            if($("#an_" + nowshow + "_" + i + "").hasClass("voter_sel"))
+            {
+                selcount++;
+                if (nowshow == 1){
+                    description += $("#an_" + nowshow + "_" + i + "").find(".pull-right").children().text()+";";
+                }
+                
+            }
+        }
+        if(selcount==0){
+
+            layer.open({
+                content:"<span style=\"color:black;\">您尚未选择任何选项！</span>",
+                btn:"确定",
+                shadeClose:false
+           });
+            return false;
+        }
+    }
+    $("#anlist").val($("#anlist").val()+ value +"<1>");
+    var Nextlist=$("#Nextlist"+nowshow).val();
+    var NextOhter=$("#NextOhter"+nowshow).val();
+    if(Nextlist!="")
+    {
+        var Nextlist_arr=Nextlist.split("<1>");
+        for(var i=0;i<Nextlist_arr.length;i++){
+            if(Nextlist_arr[i]!="")
+            {
+                var SubNextlist_arr=Nextlist_arr[i].split("<2>");
+                if(selvalue.indexOf(","+ SubNextlist_arr[0] +",")>-1)
+                {
+                    showtmbysort(SubNextlist_arr[1]);
+                    return false;
+                }
+            }
+        }
+    }
+    showtmbysort(NextOhter);
+}
+//选择一个答案
+function selectan(sindex)
+{
+    var VOTERTYPE=parseInt($("#VOTERTYPE"+nowshow).val());//单选或多选
+    if(VOTERTYPE==1)//单选
+    {
+        //遍历
+        var olis=$("#select_"+nowshow).children() ;
+        for(var i=0;i<olis.length;i++){
+            if(i==sindex)
+            {
+                if(!$("#an_" + nowshow + "_" + i + "").hasClass("voter_sel"))
+                {
+                    $("#an_" + nowshow + "_" + i + "").removeClass("voter"); 
+                    $("#an_" + nowshow + "_" + i + "").addClass("voter_sel"); 
+                    if(document.getElementById("inputdiv_" + nowshow + "_" + i + ""))
+                    {
+                        document.getElementById("inputdiv_" + nowshow + "_" + i + "").style.display="";
+                        document.getElementById("input_" + nowshow + "_" + i + "").focus();
+                    }
+                }
+            }
+            else{
+                if($("#an_" + nowshow + "_" + i + "").hasClass("voter_sel"))
+                {
+                    $("#an_" + nowshow + "_" + i + "").removeClass("voter_sel"); 
+                    $("#an_" + nowshow + "_" + i + "").addClass("voter"); 
+                    if(document.getElementById("inputdiv_" + nowshow + "_" + i + ""))
+                    {
+                        document.getElementById("inputdiv_" + nowshow + "_" + i + "").style.display="none";
+                    }
+                }
+            }
+        }
+    }
+    else//多选
+    {                            
+        if(!$("#an_" + nowshow + "_" + sindex + "").hasClass("voter_sel"))
+        {
+            $("#an_" + nowshow + "_" + sindex + "").removeClass("voter"); 
+            $("#an_" + nowshow + "_" + sindex + "").addClass("voter_sel"); 
+            if(document.getElementById("inputdiv_" + nowshow + "_" + sindex + ""))
+            {
+                document.getElementById("inputdiv_" + nowshow + "_" + sindex + "").style.display="";
+                document.getElementById("input_" + nowshow + "_" + sindex + "").focus();
+            }
+        }
+        else{
+            $("#an_" + nowshow + "_" + sindex + "").removeClass("voter_sel"); 
+            $("#an_" + nowshow + "_" + sindex + "").addClass("voter"); 
+            if(document.getElementById("inputdiv_" + nowshow + "_" + sindex + ""))
+            {
+                document.getElementById("inputdiv_" + nowshow + "_" + sindex + "").style.display="none";
+            }
+        }
+    }
+}      
+function checkform()
+{
+    var checktmlist=$("#anlist").val();
+    var checktmarr=checktmlist.split(",");
+    if(checktmarr.length <= tmcount)
+    {
+        return false;
+    }
+    return true;
+}
+    //初始化，显示第一题
+    showtm(0);                
+
+</script>
+</body>
+</html>

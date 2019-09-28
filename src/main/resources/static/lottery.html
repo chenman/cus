@@ -1,0 +1,829 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>莆田移动</title>
+    <!-- 大转盘活动 -->
+    <link rel="stylesheet" type="text/css" href="./css/base.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <script src="./js/adaptive-version3.js" type="text/javascript"></script>
+    <script src="./js/common.js" type="text/javascript"></script>
+    <script type="text/javascript">
+	window['adaptive'].desinWidth = 640;
+    window['adaptive'].baseFont = 18;
+    window['adaptive'].maxWidth = 640;
+    window['adaptive'].init();
+
+
+    </script>
+</head>
+
+<body>
+<!--<header>
+   <div class="fixed_top">
+        <i class="mlogo"></i>
+   </div>
+</header>-->
+
+<div class="index_wrap roatateBody">
+    <div class="mainDay">
+        <div id="outercont">
+            <div id="outer-cont">
+                <div class="light"></div>
+                <div id="outer" class="rotate_main">
+                    <!--奖品选项-->
+                    <!-- <div class="price_item price_item_1">
+                        <p>电影票<span>2张</span></p>
+                    </div>
+                    <div class="price_item price_item_2">
+                        <p><span>5元</span>话费</p>
+                    </div>
+                   <div class="price_item price_item_3">
+                        <p>电影票<span>2张</span></p>
+                    </div>
+                    <div class="price_item price_item_4">
+                        <p><span>5元</span>话费</p>
+                    </div>
+                    <div class="price_item price_item_5">
+                        <p>谢谢参与</p>
+                    </div>
+                    <div class="price_item price_item_6">
+                        <p>谢谢参与</p>
+                    </div> -->
+                </div>
+                <div id="inner" class="beginPlay"></div>
+            </div>
+        </div>
+    </div>
+    <div class="vRule" onclick="rulePop()">活动规则</div>
+</div>
+<div class="footer-desc">
+   <span>
+   闽ICP备********号 <br/>
+   中国移动通信集团福建有限公司莆田分公司<br/>
+   本网站支持IPv6访问
+     </span>
+</div>
+
+<!--透明背景-->
+<div class="flexBg" style="display: block;"></div>
+
+<!--规则 弹窗-->
+<div class="comPop vPop rulePop vrulePop" style="display: none;">
+    <a href="javascript:HiderulePop()" class="closePop"></a>
+    <h3 class="cj_title">活动规则</h3>
+    <div class="popRules" id="actrule">
+
+    </div>
+</div>
+
+<!--弹窗 -->
+<div class="comPop" id="loginDiv" style="display: none;">
+    <h3 class="popTitle">输入手机号码<a href="javascript:Hidepop()"></a></h3>
+    <div class="comPop_info">
+        <div class="bind_item">
+            <dl>
+                <dt>手机号码</dt>
+                <dd><input type="tel" name="" id="mobile" value="" class="bindPut" placeholder="请输入11位手机号码"/></dd>
+            </dl>
+            <dl>
+                <dt>图形验证码</dt>
+                <dd>
+                    <input type="text" name="" id="txCode" value="" class="bindPut w50" style="width: 58%;"
+                           placeholder="请输入图形验证码"/>
+                    <img style="vertical-align:middle;margin-bottom:-4px;" src="imageServlet"
+                         id="validateimgid" onclick="changeImg()">
+                </dd>
+            </dl>
+            <dl>
+                <dt>短信验证码</dt>
+                <dd>
+                    <input type="text" name="" id="checkCode" value="" class="bindPut w50" style="width: 58%;"
+                           placeholder="请输入4位验证码"/>
+                    <a href="javascript:void(0);" class="btnGets" onclick="sendCode();" id="sendBtn">获取</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="PopBtn">
+        <a href="javascript:void(0);" class="psure" onclick="login();" id="submitBtn">提交</a>
+    </div>
+</div>
+
+<!-- 弹窗 提示 -->
+<div class="comPop" id="tipDiv" style="display: none;">
+    <h3 class="popTitle">温馨提示<a href="javascript:tipHidepop()" class="closePop"></a></h3>
+    <div class="comPop_info">
+        <h3 class="tiqk"><img src="./images/icon_tips.png"/></h3>
+        <p id="tipMsg"></p>
+    </div>
+    <div class="PopBtn">
+        <a href="javascript:tipHidepop()" class="psure">确定</a>
+    </div>
+</div>
+
+<!-- 弹窗 提示已抽奖 -->
+<div class="comPop" id="tipDiv1" style="display: none;">
+    <h3 class="popTitle">温馨提示<a href="javascript:tipHidepop()" class="closePop"></a></h3>
+    <div class="comPop_info">
+        <h3 class="tiqk"><img src="./images/icon_tips.png"/></h3>
+        <p id="tipMsg1"></p>
+    </div>
+    <div class="PopBtn">
+        <a href="http://zzcmcc.com.cn./images/CMCC-ZZYD.jpg" class="psure">确定</a>
+    </div>
+</div>
+
+<!-- 处理两层弹出框 提示 -->
+<div class="comPop" id="tipTwoDiv" style="display: none;">
+    <h3 class="popTitle">温馨提示<a href="javascript:tipTwoHidepop()" class="closePop"></a></h3>
+    <div class="comPop_info">
+        <h3 class="tiqk"><img src="./images/icon_tips.png"/></h3>
+        <p id="tipTwoMsg"></p>
+    </div>
+    <div class="PopBtn">
+        <a href="javascript:tipTwoHidepop()" class="psure">确定</a>
+    </div>
+</div>
+
+<!-- 只用于活动尚未开始和已结束 弹窗 提示 -->
+<div class="comPop" id="actTipDiv" style="display: none;">
+    <h3 class="popTitle">温馨提示<a href="javascript:actStatusHidepop()" class="closePop"></a></h3>
+    <div class="comPop_info">
+        <h3 class="tiqk"><img src="./images/icon_tips.png"/></h3>
+        <p id="actTipMsg"></p>
+    </div>
+    <div class="PopBtn">
+        <a href="javascript:actStatusHidepop()" class="psure">确定</a>
+    </div>
+</div>
+
+<!--提示前往弹窗-->
+<div class="comPop" style="display: none;" id="goTipDiv">
+    <h3 class="popTitle">温馨提示</h3>
+    <div class="comPop_info">
+        <p id="goTipMsg"></p>
+    </div>
+    <div class="PopBtn">
+        <a href="javascript:void(0);" id="gotoBind" class="psure">前往绑定</a>
+    </div>
+</div>
+
+<!-- 异网引导办卡 -->
+<div class="comPop" style="display: none;" id="otherDiv">
+    <h3 class="popTitle">温馨提示</h3>
+    <div class="comPop_info">
+        <p id="otherMsg"></p>
+    </div>
+    <div class="PopBtn">
+        <a href="javascript:void(0);" id="gotoOther" class="psure">确定</a>
+    </div>
+</div>
+
+<!--弹窗，签到成功-->
+<div class="common_pop pop_dSuc pop_end hideObj">
+    <a href="javascript:;" class="closeDpop"></a>
+    <div class="common_pop_info">
+        <h3 class="dtitle" style="margin-bottom: 0.2rem;"><span>抽奖结果</span></h3>
+        <p><span id="end_text"></span><br/><span id="endPrice"></span></p>
+        <a href="images/CMCC-PT.jpg" class="btn_day btn_know">全心全意 为您服务</a>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script src="./js/lottery.js" type="text/javascript"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js" type="text/javascript"></script>
+<script src="./js/jquery.cookie.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+	var  appid = "";
+	var  timestamp = "";
+	var  nonceStr = "";
+	var  signature = "";
+
+	var login_mobile = "";
+	//url必须与请求的URL一致  用于生成 signature
+	var url = "/jsp/wap/act/turntableAct.jsp?actId=ACT43992";
+
+	//C_OPENID_+平台ID
+	var cookieKey = "C_OPENID_";
+	var  actId = "ACT43992";
+	var openid="";
+	var  activityPO  = null;
+	var  sharePO =  null;
+	var  conditionPO =  null;
+	var  turntablePO = null;
+	var  accountTempPO = null;
+	var  preUrl = "";
+	var xmSuffix = "";
+	var endDate = "";
+	var  mySendCount = 0;
+
+	//分享需要的参数
+	var title = "";   //分享标题
+	var desc = "";  //分享描述
+	//分享链接
+	var  link = "";
+	//分享图标
+	var imgUrl = "";
+
+	$(function(){
+
+		/* var useragent =  navigator.userAgent ;
+		if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
+				 	window.location.href  =  "wxError.jsp";  //";//若不是微信浏览器，跳转到温馨error页面
+		 }else{ */
+
+					//加载活动明细
+					getActivityDetail();
+
+					//同步加载公众号信息
+					loadChannelInfo();
+
+					//加载转盘奖品
+					loadTurntableAwardList();
+	//	 }
+
+	})
+
+
+	function changeImg() {
+	    var now = new Date().getTime();
+	    $("#validateimgid").attr("src", "imageServlet?d=" + now);
+	}
+
+	//加载转盘奖品
+	function loadTurntableAwardList(){
+		 var awardId = turntablePO.awardId;
+		 $.ajax({
+		       type:"POST",
+		       url: "getAwardItemList",
+		       data:{"awardId": awardId},
+		       cache:false,
+		       dataType: "json",
+		       success: function(result){
+
+		    	        if ("0" != result.code) {
+		    	           tipPop("网络开小差^^");
+		                   return;
+		               }
+		    	       var  itemList = result.data.itemList;
+		    	       if(isEmpty(itemList)){
+		    	    	   tipPop("网络开小差^^");
+		                   return;
+		    	       }
+
+	                   var tempHtml = "";
+		    	       $.each(itemList , function(index , obj){
+		    	    	   tempHtml += "<div class='price_item price_item_"+(index+1)+"'>";
+		    	    	   tempHtml += "<p>"+obj.name+"</p>";
+		    	    	   tempHtml += "</div>";
+		    	       })
+		    	       $("#outer").html(tempHtml);
+
+				},
+				error : function() {
+					tipPop("系统繁忙，请稍后再试");
+				}
+		});
+	}
+
+	var business = ""; //优惠内容
+	//抽奖
+	function  raffle(){
+
+		  $.ajax({
+		       type:"POST",
+		       url: "raffle",
+		       data:{"mobile": login_mobile , "actId" : "ACT43992" , "openid":openid},
+		       cache:false,
+		       dataType: "json",
+		       success: function(result){
+
+		    	        if ("0" != result.code) {
+		    	           tipPop("网络开小差^^");
+		                   return;
+		               }
+		    	       var  paramEx = result.data.paramEx;
+		    	       if(paramEx == "0"){
+		    	    	   tipPop("网络开小差^^");
+		                   return;
+		    	       }
+		    	       var  whilelist = result.data.whilelist;
+		    	       var  blacklist = result.data.blacklist;
+		    	       if(whilelist == "0"  ||  blacklist == "0"){
+		    	    	   tipPop1("很抱歉，您不是活动的目标用户哦！");
+		            	   return;
+		    	       }
+		               var isRaffle = result.data.isRaffle;
+		               if(isRaffle == "0"){
+		            	   tipPop1("您抽奖机会已经用完了哦！");
+		            	   return;
+		               }
+		               //秒杀活动奖品被抢完了
+		               var noAward = result.data.noAward;
+		               if(noAward == "0"){
+		            	   tipPop1("对不起，该次活动的奖品已被抢完！");
+		            	   return;
+		               }
+		               business = result.data.business;  //优惠内容
+		               var  award = result.data.award;
+		               if(!isEmpty(award)){
+		            	   var degree = award.degree;
+				        	myIsAward = award.award;
+				        	awardName = award.name ;
+				        	awardId = award.id;
+				        	lostDeg = [parseInt(degree)];
+				            start();
+				            running = false;
+		               }
+				},
+				error : function() {
+					tipPop("系统繁忙，请稍后再试");
+				}
+		});
+
+	}
+
+	function  showAwardMsg(awardName , myIsAward){
+		//显示信息时 先清空
+		$('#end_text').text("");
+		$('#endPrice').text("");
+
+		var  result = "";
+		if("1" == myIsAward){
+			result = awardName;
+    		$('#end_text').text('恭喜您，中奖啦!奖品发放时间详见活动规则！');
+		}else{
+			result = awardName;
+			$('#end_text').text('很遗憾，您没有中奖！');
+		}
+		// 	if(isEmpty(business)){
+		// 		$('#endPrice').text(result);
+		// 	}else{
+		// 		var name = business.netAge;
+		// 		var url = business.star;
+		// 		var temp = "<a href='"+url+"'>"+name+"</a>";
+		// 		$('#endPrice').html(temp);
+		// 	}
+		// }
+
+		$('#endPrice').text(result);
+		$(".flexBg,.pop_end").show();
+	}
+
+	//点击“知道了”
+	$(".btn_know").on("click" , function(){
+		   $('.flexbg').hide();
+		   $('.common_pop').hide().removeClass('bounceIn');
+	});
+
+
+	//同步加载活动相关信息
+	function  getActivityDetail(){
+	$.ajax({
+	       type:"POST",
+	       url: "getActivityTurntableDetail",
+	       data:{ "id" : actId},
+	       cache:false,
+	       async:false,
+	       dataType: "json",
+	       success: function(result){
+	    	       if ("0" != result.code) {
+	                   return;
+	               }
+	    	       activityPO  = result.data.tbZzydActivityPO;
+	    	       sharePO =   result.data.activitySharePO;
+	    	       conditionPO =  result.data.activityConditionPO;
+	    	       turntablePO =  result.data.activityTurntablePO;
+	    	       accountTempPO = result.data.accountTemp;
+	    	       //初始化 cookieKey
+	    	       cookieKey = cookieKey + accountTempPO.wxOpenId;
+	    	       preUrl = result.data.pre_url;
+	    	       endDate = result.data.endDate;
+	    	       xmSuffix = result.data.xmSuffix;
+	    	       if(isEmpty(activityPO)){
+	    	    	    tipPop("网络开小差^^");
+	    	    	    return;
+	    	       }
+	    	       var  start =  result.data.isStart;
+	    	       if(start == "0"){  //活动还没开始
+	    	    	    actStatusPop("活动还没开始哦，敬请期待");
+	    	       		return;
+	    	       }
+	    	       var  end =  result.data.isEnd;
+	    	       if(end == "1"){  //活动已经结束
+	    	    	    actStatusPop("活动已经结束哦，感谢您的参与");
+	    	       		return;
+	    	       }
+
+	    	       //检查cookie ，用户是否登陆过
+	    	       var  cookieValue = $.cookie(cookieKey);
+	    	       if(isEmpty(cookieValue)){
+	    	    	   //活动进行中
+		    	       $("#loginDiv").show();
+	    	       }else{
+	    	    	   openid = cookieValue.split(",")[0];
+	    	    	   login_mobile = cookieValue.split(",")[1];
+	    	    	   if(isEmpty(login_mobile)){
+	    	    		   login_mobile = "";
+	    	    	   }
+	    	    	   Hidepop();
+	    	       }
+	    	   		//初始化页面活动信息
+	   		 		initActDetail();
+			},
+			error : function() {
+				tipPop("网络开小差^^");
+			}
+	});
+
+	}
+
+	//初始化页面活动信息
+	function  initActDetail(){
+
+		 //活动 banner
+		 $("#actbanner").attr("src" ,  (preUrl + activityPO.actBanner));
+		 //活动规则
+		 $("#actrule").html(activityPO.actRule);
+
+	}
+
+	var  secondnum = 60;
+	var clock = '';
+	//获取验证码
+	function  sendCode(){
+		 mobile = $("#mobile").val();
+		 var txCode = $("#txCode").val();
+		 if(isEmpty(mobile)){
+			 tipPop("请输入手机号码^^");
+			 return ;
+		 }
+
+		 if(isEmpty(txCode)){
+			 tipPop("请输入图形验证码^^");
+			 return ;
+		 }
+	   /*  if(!checkPhone(mobile)){
+			 goOther("您有一张移动号码卡可领取");
+			 return ;
+		 }  */
+		 $("#sendBtn").removeAttr("onclick");
+		$.ajax({
+		       type:"POST",
+		       url: "userbindAction!validCode3",
+		       data:{"mobile": mobile , "txCode" : txCode},
+		       cache:false,
+		       dataType: "json",
+		       success: function(result){
+		    	       $("#sendBtn").attr("onclick" , "sendCode()");
+		    	       if ("0" != result.code) {
+		    	    	   tipPop("获取验证码失败^^");
+		                   return;
+		               }
+		    	       var  isChinaMobile = result.data.isChinaMobile;
+		    	       if(isChinaMobile == "0"){    //非移动号码 引导办卡
+		    	    	   goOther("您有一张移动号码卡可领取");
+		    	       	   return ;
+		    	       }
+		    	       var paramEx = result.data.paramEx;
+		    	       if(paramEx == "0"){
+		    	    	   tipPop("请输入手机号码^^");
+		                   return;
+		    	       }
+
+		    	       var verifyCode = result.data.verifyCode;
+		    	       if(verifyCode == "0"){
+		    	    	   tipPop("图形验证码错误^^");
+		                   return;
+		    	       }
+
+		    	       var  sendError = result.data.sendError;
+		    	       if(sendError == "0"){
+		    	    	   tipPop("获取验证码失败");
+		                   return;
+		    	       }
+		    	       var  send = result.data.send;
+		    	       if(send == "1"){  //发送成功
+		    	    	   clock = setInterval(doLoop, 1000); //一秒执行一次
+		    	       }
+
+				},
+				error : function() {
+					tipPop("网络开小差^^");
+				}
+			});
+	}
+
+	function doLoop() {
+	 	secondnum--;
+	 	if(secondnum > 0){
+	  			$("#sendBtn").text(secondnum+'s' );
+	 	}else{
+		  clearInterval(clock); //清除js定时器
+		   //将提交按钮恢复点击
+	       $("#sendBtn").attr("onclick" , "sendCode();");;
+		   $("#sendBtn").text("获取");
+		   secondnum = 60; //重置时间
+		 }
+	}
+
+	function  checkValue(){
+		 mobile = $("#mobile").val();
+		 if(isEmpty(mobile)){
+			 tipTwoPop("请输入手机号码^^");
+			 return false;
+		 }
+		 var checkCode = $("#checkCode").val();
+		 if(isEmpty(checkCode)){
+			 tipTwoPop("请输入验证码^^");
+			 return false;
+		 }
+		 return  true;
+	}
+	//登陆
+	function  login(){
+
+	 if(checkValue()){
+		 var mobile = $("#mobile").val();
+		 var checkCode = $("#checkCode").val();
+		 var channel = activityPO.channelId;
+		 //将提交按钮设置为不可点击
+		 $("#submitBtn").removeAttr("onclick");
+		 $.ajax({
+		       type:"POST",
+		       url: "login",
+		       data:{"actId" : actId , "mobile": mobile , "checkCode" : checkCode ,  "channelID":channel},
+		       cache:false,
+		       dataType: "json",
+		       success: function(result){
+		    	       //将提交按钮恢复点击
+		    	       $("#submitBtn").attr("onclick" , "login();");
+
+		    	       if ("0" != result.code) {
+		    	    	   tipPop("提交失败^^");
+		                   return;
+		               }
+
+		    	       var  codeNullError = result.data.codeNullError;
+		    	       if(codeNullError == "0"){
+		    	    	   tipPop("请重新获取验证码");
+		    	    	   return;
+		    	       }
+
+		    	       var  codeError = result.data.codeError;
+		    	       if(codeError == "0"){
+		    	    	   tipPop("验证码错误");
+		    	    	   return;
+		    	       }
+
+		    	       var  whilelist = result.data.whilelist;
+		    	       var  blacklist = result.data.blacklist;
+		    	       if(whilelist  == "0"  ||  blacklist == "0"){
+		    	    	   tipPop("不是目标客户^^");
+		    	    	   return;
+		    	       }
+
+		    	       openid = result.data.openid;
+		    	      if(isEmpty(openid)){   //提示前往绑定
+		    	    	   if(conditionPO.isNotice=="1" || conditionPO.isBind == "1"){
+		    	    		   goPop("您需要绑定莆田官微，才能参与活动哦！");
+		    	    		   $("#gotoBind").attr("href" , "attentionQrcode.html");
+		    	    		   return;
+		    	    	   }
+		    	       }else{
+		    	    	   $.cookie(cookieKey , (openid + "," + mobile) , {expires: 365});
+		    	       }
+
+                        //保存手机号码
+                        login_mobile = mobile;
+                        Hidepop();
+
+                        //分享标题
+                        title = sharePO.title;
+                        //分享描述
+                        desc = sharePO.content;
+                        //分享链接
+                        //link = sharePO.shareUrl;
+                        link = xmSuffix + "lottery?actId=ACT43992&fromMobile=" + login_mobile ;
+                        //分享图标
+                        imgUrl = preUrl + sharePO.coinUrl;
+
+				   //注册分享
+	    	       wx.ready(function(){
+	 				  //分享朋友圈
+	 				  menuShareTimeline(title , desc ,  link , imgUrl);
+	 				  //分享好友
+	 			 	   menuShareAppMessage(title , desc ,  link , imgUrl);
+		 			});
+
+		 			wx.error(function(res){
+		 			});
+
+				},
+				error : function() {
+					tipPop("网络开小差^^");
+				}
+		});
+	 }
+	}
+
+	//同步加载公众号信息
+	function  loadChannelInfo(){
+	$.ajax({
+	       type:"POST",
+	       url: "/zzydwap/template/templateAction!access.action",
+	       data:{"id":activityPO.channelId , "url":url},
+	       cache:false,
+	       dataType: "json",
+	       success: function(result){
+		    	   if ("0" != result.code) {
+	                   return;
+	               }
+		    	  appid = result.data.appid;
+		    	  nonceStr = result.data.nonceStr;
+		    	  timestamp = result.data.timestamp;
+		    	  signature = result.data.signature;
+		    	  wx.config({
+		    			//debug:true,
+		    		    appId: appid, // 必填，公众号的唯一标识
+		    		    timestamp: timestamp, // 必填，生成签名的时间戳
+		    		    nonceStr: nonceStr, // 必填，生成签名的随机串
+		    		    signature: signature,// 必填，签名，见附录1
+		    		    jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		    	});
+			},
+			error : function() {
+			}
+	});
+	}
+
+	//分享到朋友圈
+	function   menuShareTimeline(title , desc ,  link , imgUrl){
+		wx.onMenuShareTimeline({
+			title: title, // 分享标题
+		    desc: desc, // 分享描述
+		    link: link,   //分享链接
+		    imgUrl: imgUrl , // 分享图标
+		    success: function () {
+		        // 用户确认分享后执行的回调函数
+		    	tipPop("分享成功");
+		    },
+		    cancel: function () {
+		        // 用户取消分享后执行的回调函数
+		    	tipPop("取消分享");
+		    }
+		});
+	}
+
+	//分享好友
+	function   menuShareAppMessage(title , desc ,  link , imgUrl){
+			wx.onMenuShareAppMessage({
+				title: title, // 分享标题
+			    desc: desc, // 分享描述
+			    link: link,   //分享链接
+			    imgUrl: imgUrl , // 分享图标
+			    success: function () {
+			        // 用户确认分享后执行的回调函数
+			    	tipPop("分享成功");
+			    },
+			    cancel: function () {
+			        // 用户取消分享后执行的回调函数
+			    	tipPop("取消分享");
+			    }
+			});
+	}
+
+
+	/*活动尚未开始 和 活动结束提示*/
+	function  actStatusPop(message){
+		$("#actTipMsg").text(message);
+		$('.flexBg, #actTipDiv').show();
+		$('#actTipDiv').addClass('bounceIn');
+	}
+	/*活动尚未开始 和 活动结束提示  关闭*/
+	function actStatusHidepop(){
+		$(' #actTipDiv').hide();
+		$('#actTipDiv').removeClass('bounceIn');
+	}
+
+	/*提示前往弹窗函数*/
+	function goPop(message){
+		$("#goTipMsg").text(message);
+		$('#goTipDiv').show();
+		$('#goTipDiv').addClass('bounceIn');
+	}
+
+	/*异网引导办卡弹窗*/
+	function goOther(message){
+		//隐藏登陆框
+		$("#loginDiv").hide();
+		$("#otherMsg").text(message);
+		$('#otherDiv').show();
+		$('#otherDiv').addClass('bounceIn');
+		//跳转链接
+		//$("#gotoOther").attr("href" , "/zzydwap/jsp/wap/act/otherNetAct.jsp");
+		//记录跳转操作用户
+		addYwbkUser(actId , mobile , "/zzydwap/ywbkact/ywbkactAction!addYwbkUser.action");
+		if(ywbkwl == 1){
+			$("#gotoOther").attr("href" , ywbkUrl);
+		}else{
+			$("#gotoOther").attr("href" , ywbkUrl + "&mobile=" + mobile + "&target=1" );
+		}
+	}
+
+
+
+	function goHidepop(){
+		$('#goTipDiv').hide();
+		$('#goTipDiv').removeClass('bounceIn');
+	}
+
+
+	/*两层弹出框提示处理 背景层问题*/
+	function tipTwoPop(message){
+		$("#tipTwoMsg").text(message);
+		$('.flexBg, #tipTwoDiv').show();
+		$('#tipTwoDiv').addClass('bounceIn');
+	}
+
+	function tipTwoHidepop(){
+		$('#tipTwoDiv').hide();
+		$('#tipTwoDiv').removeClass('bounceIn');
+	}
+
+
+	/*提示弹窗函数*/
+	function tipPop(message){
+		$("#tipMsg").text(message);
+		$('.flexBg, #tipDiv').show();
+		$('#tipDiv').addClass('bounceIn');
+	}
+
+	//提示后跳转的弹窗
+	function tipPop1(message){
+		$("#tipMsg1").text(message);
+		$('.flexBg, #tipDiv1').show();
+		$('#tipDiv1').addClass('bounceIn');
+	}
+
+	function tipHidepop(bm){
+		$('.flexBg,#tipDiv').hide();
+		$('#tipDiv').removeClass('bounceIn');
+	}
+
+	/*登录弹窗函数*/
+	function pop(){
+		$('.flexBg, #loginDiv').show();
+		$('#loginDiv').addClass('bounceIn');
+	}
+
+	function Hidepop(){
+		$('.flexBg, #loginDiv').hide();
+		$('#loginDiv').removeClass('bounceIn');
+	}
+
+
+   function isEmpty(message){
+		return  message=="" || message==null || message==undefined ;
+	}
+
+	 //弹窗
+	$('.d_rule').on('click',function(){
+		$('.flexbg').show();
+	    $('.pop_dSuc').show().addClass('bounceInDown');
+	});
+
+	//弹窗
+	$('.d_search').on('click',function(){
+		$('.flexbg').show();
+	    $('.pop_dSearch').show().addClass('bounceInDown');
+	});
+
+	//隐藏弹窗
+	$('.closeDpop').on('click',function(){
+		 $('.flexbg').hide();
+	   $('.common_pop').hide().removeClass('bounceInDown');
+	});
+
+	/*规则弹窗*/
+	function rulePop(){
+		$('.rulePop,.flexbg').show();
+		$('.rulePop').addClass('bounceIn');
+	}
+	function HiderulePop(){
+		$('.rulePop,.flexbg').hide();
+		$('.rulePop').removeClass('bounceIn');
+	}
+
+
+
+
+</script>
+</html>
