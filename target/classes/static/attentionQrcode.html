@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<title>漳州移动</title>
+<!-- 关注有礼  二维码 -->
+<link rel="stylesheet" type="text/css" href="./css/base.css">
+<link rel="stylesheet" type="text/css" href="./css/index.css">
+<style type="text/css">
+
+</style>
+<script src="./js/adaptive-version3.js" type="text/javascript"></script>
+<script type="text/javascript">
+	window['adaptive'].desinWidth = 640;
+    window['adaptive'].baseFont = 18;
+    window['adaptive'].maxWidth = 640;
+    window['adaptive'].init();
+</script>
+</head>
+
+<body>
+
+<div class="index_wrap cardShare" style="background: #FECB2E;">
+    <div class="cinfos">
+        <div class="c_vd">
+            <p>欢迎参加关注有礼，长按二维码，在弹出的菜单中点击“识别图中二维码”进行关注，即可参与本次活动</p>
+        </div>
+    </div>
+    <div class="v_bd">
+        <div class="vd_top"><img src="images/bg_c1.gif" width="100%"/></div>
+        <div class="v_bd_info">
+            <img src="images/qrcode.jpg" class="code_img"/>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script src="./js/main.js" type="text/javascript"></script>
+<script type="text/javascript">
+	/*弹窗函数*/
+	function pop(){
+		$('.flexBg,.comPop').show();
+		$('.comPop').addClass('bounceIn');
+	}
+	
+	function Hidepop(){
+		$('.flexBg,.comPop').hide();
+		$('.comPop').removeClass('bounceIn');
+	}
+</script>
+</html>

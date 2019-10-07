@@ -1,0 +1,325 @@
+/* CSS Document */
+
+/* site style */
+.clearit{clear:both;height:0px;overflow:hidden;font-size:0px; margin:0; padding:0;}
+.btn2 {
+	height: 2px;
+	font-size: 0px;
+	clear: both;
+	line-height: 2px;
+	
+	
+}
+.btn4{
+	height:4px;
+	font-size:0px;
+	clear:both;
+	line-height:8px;
+}
+.btn5 {
+	height: 5px;
+	font-size: 0px;
+	clear: both;
+	line-height: 5px;
+}
+.btn6 {
+	height: 6px;
+	font-size: 0px;
+	clear: both;
+	line-height: 6px;
+}
+.btn8 {
+	height: 8px;
+	font-size: 0px;
+	clear: both;
+	line-height: 8px;
+}
+.btn10 {
+	height: 10px;
+	font-size: 0px;
+	clear: both;
+	line-height: 10px;
+}
+.btn12{
+	height:12px;
+	font-size:0px;
+	clear:both;
+	line-height:12px;
+}
+.btn14{
+	height:14px;
+	font-size:0px;
+	clear:both;
+	line-height:14px;
+}
+.btn15{
+	height:15px;
+	font-size:0px;
+	clear:both;
+	line-height:15px;
+}
+.btn16{
+	height:16px;
+	font-size:0px;
+	clear:both;
+	line-height:16px;
+}
+.btn22{
+	height:22px;
+	font-size:0px;
+	clear:both;
+	line-height:22px;
+}
+.btn36{
+	height:36px;
+	font-size:0px;
+	clear:both;
+	line-height:36px;
+}
+.btn40{
+	height:40px;
+	font-size:0px;
+	clear:both;
+	line-height:40px;
+}
+.btn46{
+	height:46px;
+	font-size:0px;
+	clear:both;
+	line-height:46px;
+}
+.btn50{
+	height:50px;font-size:0px;clear:both;line-height:50px;
+}
+.btn62{
+	height:62px;font-size:0px;clear:both;line-height:62px;
+}
+.btn100{
+	height:100px;
+	font-size:0px;
+	clear:both;
+	line-height:100px;
+}
+.btn112{
+	height:112px;
+	font-size:0px;
+	clear:both;
+	line-height:112px;
+}
+
+.AddPL_btn{border:solid 1px #666666;width:75px;height:32px;line-height:32px;vertical-align:middle;text-align:center;font-size:14px;color:#000000;background-color:#FFFFFF;-webkit-border-radius:3px;-moz-border-radius:3px;-o-border-radius:3px;border-radius:3px;-webkit-appearance: none; 
+}
+.fontyh{font: bold 28px "Microsoft YaHei","??";}
+.fontsong{ font-family:bold;}
+
+/* 颜色 */
+.cred,a.cred:link,a.cred:visited{ color:Red; }
+.cblue,a.cblue:link,a.cblue:visited{color:#125D94;}
+.cwhite,a.cwhite:link,a.cwhite:visited{color:#FFF;}
+.cblack,a.cblack:link,a.cblack:visited{color:#000;}
+.cyellow,a.cyellow:link,a.cyellow:visited{ color:#ff6500; }
+.cgery,a.cgery:link,a.cgery:visited{ color:#c1bfc0; }
+.cgerys,a.cgerys:link,a.cgerys:visited{ color:#606060;}
+.ctime,a.ctime:link,a.ctime:visited{ color:#939496; }
+.cyellows,a.cyellows:link,a.cyellows:visited{ color:#7a6524; }
+
+/* 加粗 */
+.fb {font-weight: bold;} 
+.fb3{ font-weight:bolder;} 
+.fn {font-weight:normal;}
+
+.vmiddle{ vertical-align:middle;}
+
+/*字体大小*/
+.f12{ font-size:12px;}
+.f14{ font-size:14px;} 
+.f16{ font-size:16px;} 
+.f18{ font-size:18px;} 
+.f20{ font-size:20px;} 
+.f24{ font-size:24px;} 
+.f32{ font-size:32px;} 
+
+
+/*空白*/
+.blank4{height:4px; font-size:1px; clear:both;overflow:hidden;}
+.blank6{height:6px; font-size:1px; clear:both;overflow:hidden;}
+.blank8{height:8px; font-size:1px; clear:both;overflow:hidden;}
+.blank12{height:12px; font-size:1px; clear:both;overflow:hidden;}
+.blank16{height:16px; font-size:1px; clear:both;overflow:hidden;}
+
+/*宽度*/
+.w66{
+	width:66px;
+}
+.w10{
+	width:10px;
+}
+.w4{
+	width:4px;
+}
+.w6{
+	width:6px;
+}
+.w7{
+	width:6px;
+}
+.w8{
+	width:8px;
+}
+.w9{
+	width:9px;
+}
+.w12{
+	width:12px;
+}
+.w80{
+	width:80px;
+}
+.w90{
+	width:100px;
+}
+.w100{
+	width:100px;
+}
+.w120{
+	width:120px;
+}
+.w280{
+	width:280px;
+}
+.h88{
+	height:88px;
+}
+
+/**/
+.left{ float:left;}
+.right{ float: right;}    
+.noborder{border:none;	} 
+.textcen{text-align:center;}
+.textleft{text-align:left;}
+.textrig{text-align:right;} 
+.bgfff{background:#fff;}
+.jz{margin:0px auto;}
+
+
+/*外边距*/
+.mar0{margin:0px;}
+.mar5{margin:5px;}
+.martop5{margin-top:5px;}
+.martop7{margin-top:7px;}
+.martb5{margin:5px 0px;}
+.marlr5{margin:0px 5px;}
+.marlf3{margin-left:3px;}
+.marlf4{margin-left:4px;}
+.marrg5{margin-right:5px;}
+.marlf10{margin-left:10px;}
+.marlf18{margin-left:18px;}
+.marlf20{margin-left:20px;}
+/*内边距*/
+.pad2{padding:2px;}
+.pad3{padding:3px;}
+.pad4{padding:4px;}
+.pad5{padding:5px;}
+.pad7{padding:7px;}
+.padtb6{padding:6px 0px 6px 0px;}
+.pad6{padding:6px;}
+.pad10{padding:10px;}
+.padlef5{padding-left:5px;}
+.padrig10{padding-right:10px;}
+
+/*显示隐藏*/
+.dis {
+	display: block;
+}
+.undis {
+	display: none;
+}
+.Tdform_name2
+{
+	padding-left:20px;
+	font-size: 10.5pt;
+	color:#333333;
+	line-height:20px;
+	text-align:left;
+}
+.Tdform_kuang2_title
+{
+	height:25px;
+	color:red;
+	font-weight: bold;
+}
+.Tdform_kuang2
+{
+	height:36px;
+	font-size: 10.5pt;
+	color:#434343;
+	font-weight: bold;
+	background:url(images/BSGK/Tdform_kuang2_title_bg.jpg);
+	padding-left:10px;
+	text-align:left;
+}
+.contentinfo{padding-top: 5px;padding-bottom: 5px;text-align:center;}
+.zd{font-weight:bold;font-size:14px;color:Red;}
+
+/*位置背景色*/
+.localColor
+{
+	text-align:left;height:30px;line-height:30px;border:1px solid #d8d8d9;padding-left:2px;
+	background-color:#eee;
+	/*background: -webkit-gradient(linear, 0 0, 0 100%, from(#eeeeee), to(#eeeeee));*/
+}
+
+
+.CommentDiv
+{
+	padding: 0;
+	margin: 0;
+	font-family:'Microsoft YaHei UI';
+	line-height:20px;
+	font-size: 14px;
+	color: #444444;
+}
+
+.ComContent textarea
+{
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	background-color: #FFFFFF;
+	border: 1px solid #cccccc;
+	margin: 6px 0 0px;
+	padding: 5px 10px;
+	width: 100%; 
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing: border-box;
+
+}
+.textCont:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+          box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+ .btn111 {
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}          
+ 

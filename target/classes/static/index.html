@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>“满意10分”微信有奖问卷调查</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/weui.css">
+    <link rel="stylesheet" href="./css/animate.min.css">
+    <link rel="stylesheet" href="./css/style_zxdt_xm.css">
+    <link rel="stylesheet" href="./css/css.css">
+    <script src="./js/jquery.min.js" type="text/javascript"></script>
+    <script src="./js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="./js/cus/dialog_am.js"></script>
+    <script src="./js/cus/dialog2.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <!--[if lt IE 9]>
+    <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="./js/cus/bootstrap.js"></script>
+    <script src="./js/cus/public.js"></script>
+    <link rel="stylesheet" href="./css/layer1.css" type="text/css"/>
+    <script src="./js/layer.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/base.css"/>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/adaptive-version3.js"></script>
+    <script>
+            // 设计图宽度
+            window['adaptive'].desinWidth = 750;
+            // body 字体大小
+            window['adaptive'].baseFont = 18;
+
+            // 显示最大宽度
+            window['adaptive'].maxWidth = 750;
+
+            // 初始化
+            window['adaptive'].init();
+
+
+    </script>
+    <style>
+    </style>
+</head>
+
+
+<body>
+<!--透明背景-->
+<div class="flexBg" style="display: block;display: none;"></div>
+<!--弹窗 -->
+<div class="comPop" id="loginDiv" style="display: none;">
+    <h3 class="popTitle">输入手机号码<a href="javascript:Hidepop()"></a></h3>
+    <div class="comPop_info">
+        <div class="bind_item">
+            <dl>
+                <dt>手机号码</dt>
+                <dd><input type="tel" name="" id="mobile" value="" class="bindPut" placeholder="请输入11位手机号码"/></dd>
+            </dl>
+            <dl>
+                <dt>短信验证码</dt>
+                <dd>
+                    <input type="text" name="" id="checkCode" value="" class="bindPut w50" style="width: 58%;"
+                           placeholder="请输入4位验证码"/>
+                    <a href="javascript:void(0);" class="btnGets" onclick="sendCode();" id="sendBtn">获取</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="PopBtn">
+        <a href="javascript:void(0);" class="psure" onclick="login();" id="submitBtn">提交</a>
+    </div>
+</div>
+
+
+<div class="body" id="listhome"
+     style="background:url(images/hdtop50.png) center center no-repeat; background-size: 100% 100%;">
+
+    <form id="form1" onsubmit="return okedit()">
+
+        <div style="position: absolute;top: 52%;left: 0;width:100%;"><!--显示手机号和次数-->
+            <div class='pieces2 bigfont center'>
+                <b style="font-size: 19px;">2019年12月31日前，只要您参与移动满意度电话或短信调查，即有机会抽取“10分满意奖”最高获得1000元话费！</b>
+            </div>
+            <div class="div2">
+                <input type="button" class="button"
+                       onclick="window.location.href = './survey.html';" value="马上答题"/>
+            </div>
+            <div class="div2">
+                <input type="button" class="button2" onclick="desc()" value="活动说明"/>
+            </div>
+        </div>
+        <div style="height:30px;line-height:30px;">&nbsp;</div>
+        <div class="footer"
+             style="text-align:center;width:100%;position: fixed; z-index: 900; bottom: 0; left: 0;right:0;  margin: auto;font-size: 12px;">
+            闽ICP备********号 <br/> <!-- 闽ICP备17012693号 -->
+            中国移动通信集团福建有限公司莆田分公司 <br/>
+            本网站支持IPv6访问
+        </div>
+
+    </form>
+
+</div>
+<script>
+var cookieKey = "C_OPENID_";
+var accountTempPO = null;
+var activityPO  = null;
+var actId = "ACT00001";
+var login_mobile = "";
+var openid = "";
+$(function(){
+    // layer.open({
+    //             content:"<span style=\"color:black;\">该活动已结束</span>",
+    //             shadeClose:false,
+    //             closeBtn:false
+    //           });
+    getActivity();
+})
+
+
+function getActivity(){
+    //判断是否有缓存
+    $.ajax({
+           type:"POST",
+           url: "/api/getActivity",
+           data:{ "id" : actId},
+           cache:false,
+           async:false,
+           dataType: "json",
+           success: function(result){
+                   if ("200" != result.code) {
+                       return;
+                   }
+                   activityPO  = result.data;
+                   //检查cookie ，用户是否登陆过
+                   var  cookieValue = $.cookie(cookieKey);
+                   if(isEmpty(cookieValue)){
+                       $(".flexBg, #loginDiv").show();
+                   }else{
+                       openid = cookieValue.split(",")[0];
+                       login_mobile = cookieValue.split(",")[1];
+                       $('.flexBg, #loginDiv').hide();
+                   }
+            },
+            error : function() {
+                layer.open({
+                             content:"<span style=\"color:black;\">网络开小差^^</span>"
+                             ,btn: '确定'
+                           });
+            }
+    });
+}
+
+var  secondnum = 60;
+var clock = '';
+//获取验证码
+function sendCode(){
+    mobile = $("#mobile").val();
+    if(isEmpty(mobile)){
+     layer.open({
+                 content:"<span style=\"color:black;\">请输入手机号码</span>"
+                 ,btn: '确定'
+               });
+     return ;
+    }
+    $("#sendBtn").removeAttr("onclick");
+    $.ajax({
+       type:"POST",
+       url: "api/getValidCode",
+       data:{"mobile": mobile},
+       cache:false,
+       dataType: "json",
+       success: function(result){
+               if ("200" != result.code) {
+                   layer.open({
+                             content:"<span style=\"color:black;\">获取验证码失败</span>"
+                             ,btn: '确定'
+                           });
+                   return;
+               }
+
+               var  send = result.data.send;
+               if(send == "1"){  //发送成功
+                   clock = setInterval(doLoop, 1000); //一秒执行一次
+               }
+
+        },
+        error : function() {
+            layer.open({
+                         content:"<span style=\"color:black;\">网络开小差^^</span>"
+                         ,btn: '确定'
+                       });
+        }
+    });
+}
+
+function doLoop() {
+secondnum--;
+if(secondnum > 0){
+        $("#sendBtn").text(secondnum+'s' );
+}else{
+  clearInterval(clock); //清除js定时器
+   //将提交按钮恢复点击
+   $("#sendBtn").attr("onclick" , "sendCode();");;
+   $("#sendBtn").text("获取");
+   secondnum = 60; //重置时间
+ }
+}
+
+function  checkValue(){
+ mobile = $("#mobile").val();
+ if(isEmpty(mobile)){
+     layer.open({
+                 content:"<span style=\"color:black;\">请输入手机号码</span>"
+                 ,btn: '确定'
+               });
+     return false;
+ }
+ var checkCode = $("#checkCode").val();
+ if(isEmpty(checkCode)){
+     layer.open({
+                 content:"<span style=\"color:black;\">请输入验证码</span>"
+                 ,btn: '确定'
+               });
+     return false;
+ }
+ return  true;
+}
+//登陆
+function login(){
+
+    if(checkValue()){
+        var mobile = $("#mobile").val();
+        var checkCode = $("#checkCode").val();
+        var channel = activityPO.channelId;
+        //将提交按钮设置为不可点击
+        $("#submitBtn").removeAttr("onclick");
+        $.ajax({
+            type:"POST",
+            url: "api/login",
+            data:{"actId" : actId, "mobile": mobile, "checkCode": checkCode, "channelID":channel},
+            cache:false,
+            dataType: "json",
+            success: function(result){
+                   //将提交按钮恢复点击
+                   $("#submitBtn").attr("onclick" , "login();");
+
+
+                   if("807" == result.code){
+                       layer.open({
+                                 content:"<span style=\"color:black;\">请重新获取验证码</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   }
+
+                   if("806" == result.code){
+                       layer.open({
+                                 content:"<span style=\"color:black;\">验证码错误</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   }
+
+                   if ("200" != result.code) {
+                       layer.open({
+                                 content:"<span style=\"color:black;\">提交失败</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   }
+
+                   openid = result.data.openid;
+                    $.cookie(cookieKey , (openid + "," + mobile) , {expires: 365});
+                   //保存手机号码
+                   login_mobile = mobile;
+                   Hidepop();
+            },
+            error : function() {
+                layer.open({
+                             content:"<span style=\"color:black;\">网络开小差^^</span>"
+                             ,btn: '确定'
+                           });
+            }
+        });
+    }
+}
+
+function isEmpty(message){
+    return  message=="" || message==null || message==undefined ;
+}
+
+function Hidepop(){
+    $('.flexBg, #loginDiv').hide();
+    $('#loginDiv').removeClass('bounceIn');
+}
+
+
+function desc() {
+    opencoloralert(document.body.clientHeight - 100,'#0B88B7', 'images/desc.png',
+        '一、活动时间<br>'+
+
+        '<div style=\"font-size:0.24rem;\">即日起至2019年12月31日</div><br>'+
+
+        '二、活动对象<br>'+
+
+        '<div style=\"font-size:0.24rem;\">莆田移动正常在网客户均可参与2019年满意度调查</div><br>'+
+
+        '三、活动说明<br>'+
+        '<div style=\"font-size:0.24rem;\">1.兑奖要求：我们将于次月15号前对上个月参与中奖客户进行奖品赠送，受理赠送奖品当月若您的手机状态不正常或存在互斥的在用业务等原因，将无法赠送成功，请留意手机短信并以生效短信通知为准。<br>'+
+        '2.赠送的流量将于除安心包以外所有流量使用完后使用，仅限生效当月使用，到期自动失效。<br>'+
+        '3.仅限莆田移动客户参与，每个客户每月仅限参与一次。<br>'+
+        '4.旧版WAP包月套餐需取消原套餐后，即可参与活动。</div><br>'+
+
+        '四、奖项配置<br>'+
+        '<div style=\"font-size:0.24rem;\">10分满意奖：200元话费20名；<br>'+
+        '10分惊喜奖：50元话费200名；<br>'+
+        '10分鼓励奖：5G国内流量2000名；<br>'+
+        '10分感谢奖：50分钟国内通话5000名；<br>'+
+        '10分幸运奖：1G国内流量20000名；</div><br>'+
+
+        '五、中奖公告<br>'+
+        '<div style=\"font-size:0.24rem;\">参与本活动中奖客户，我司将通过莆田移动各营业网点公布中奖客户清单；同时，每月通过“莆田移动”官方微信进行推文公告（因参与人数较多，每月只能公布部分参与中奖客户清单）。请中奖客户务必保持手机状态正常，留意生效短信通知为准。</div>'
+        );
+}
+
+//活动说明
+function opencoloralert(v_height,v_color, title_pic, v_str) {
+    var v_width = (document.body.clientWidth > 640 ? 640 : document.body.clientWidth) - 50;
+    var sBG = '\
+            <div style="Z-INDEX:2000;position:fixed;top:0px;left:0px;width:100%;height:100%;background:#000000;filter:alpha(opacity=40);-moz-opacity:.4;opacity:0.4;display:none;" id="dialogbg"></div>\
+        ';
+    sBox = '\
+            <div style="Z-INDEX:2001;position:fixed;display:none;border-radius: 10px;background:#FFF;" id="dialogbox">\
+                <div style="position: relative;background:' + v_color + ';height:45px;border-radius: 10px 10px 0 0;">\
+                    <div style="float:right;width:35px;padding-top:5px;cursor:pointer;" onclick="closecolor();"><img src="images/close2.png" style="width:25px;"></div>\
+                    <div style="position:absolute;z-index:11;left:50%;top:-15px;"><img src="' + title_pic + '" style="width:160px;margin-left: -80px;" /></div>\
+                </div>\
+                <div style="OVERFLOW:auto;width:100%;height:' + v_height + 'px;padding:10px;color:#404040;font-size:0.38rem;">' + v_str + '</div>\
+                <div style=\"height:10px;line-height:10px;\">&nbsp;</div>\
+            </div>\
+        ';
+
+    if (document.getElementById("dialogCase") == null) {
+        var oDiv = document.createElement('span');
+        oDiv.id = "dialogCase";
+        document.body.appendChild(oDiv);
+    }
+    else {
+        var oDiv = document.getElementById("dialogCase");
+    }
+    oDiv.innerHTML = sBG + sBox;
+
+    var arr = document.getElementsByTagName("select");
+    for (var i = 0; i < arr.length; i++) {
+        var e = arr[i];
+        e.style.display = "none";
+    }
+
+    document.getElementById("dialogbg").style.display = "";
+    document.getElementById("dialogbox").style.display = "";
+    divwidth = v_width;
+
+    divheight = v_height + 45;
+    if (title_pic == "") {
+        divheight = v_height;
+    }
+    var left = (document.getElementById("dialogbg").offsetWidth - divwidth) / 2;
+    var top = (document.getElementById("dialogbg").offsetHeight - divheight) / 3;
+
+    document.getElementById("dialogbox").style.top = top + "px";
+    document.getElementById("dialogbox").style.left = left + "px";
+    document.getElementById("dialogbox").style.width = divwidth + "px";
+    $("#dialogbox").addClass('animated bounceInLeft');
+
+}
+
+function showimage(img) {
+        img.style.height = document.body.clientHeight+"px";
+    }
+
+function share() {
+    document.getElementById("mcover").style.display = "block";
+}
+
+
+</script>
+</body>
+</html>
