@@ -382,29 +382,29 @@
     </form>
 </div>
 <script type="application/javascript">
-    var arr=new Array();
-    arr[0]=new Array();
-    arr[1]=new Array();
-    arr[2]=new Array();
-    arr[3]=new Array();
+var arr=new Array();
+arr[0]=new Array();
+arr[1]=new Array();
+arr[2]=new Array();
+arr[3]=new Array();
 
-    var tmcount=4;
-    var nowshow=-1;
-    var maxtime =0;
-    var cansel=true;
-    var description="";
+var tmcount=4;
+var nowshow=-1;
+var maxtime =0;
+var cansel=true;
+var description="";
 
-    var cookieKey = "C_OPENID_";
-    var  accountTempPO = null;
-    var  activityPO  = null;
-    var  actId = "ACT44888";
-    var login_mobile = "";
+var cookieKey = "C_OPENID_";
+var accountTempPO = null;
+var activityPO  = null;
+var actId = "ACT00001";
+var login_mobile = "";
 
 $(document).ready(function(){
     //判断是否有缓存
     $.ajax({
            type:"POST",
-           url: "survey",
+           url: "api/getActivity",
            data:{ "id" : actId},
            cache:false,
            async:false,
@@ -413,7 +413,7 @@ $(document).ready(function(){
                    if ("0" != result.code) {
                        return;
                    }
-                    activityPO  = result.data.tbZzydActivityPO;
+                    activityPO  = result.data;
                    //检查cookie ，用户是否登陆过
                    var  cookieValue = $.cookie(cookieKey);
                    if(isEmpty(cookieValue)){
@@ -433,62 +433,47 @@ $(document).ready(function(){
     }); 
 });
 
-var  secondnum = 60;
+var secondnum = 60;
 var clock = '';
-    //获取验证码
-function  sendCode(){
-     mobile = $("#mobile").val();
-     if(isEmpty(mobile)){
-         layer.open({
-                     content:"<span style=\"color:black;\">请输入手机号码</span>"
-                     ,btn: '确定'
-                   });
-         return ;
-     }
-     $("#sendBtn").removeAttr("onclick");
+//获取验证码
+function sendCode(){
+    mobile = $("#mobile").val();
+    if(isEmpty(mobile)){
+     layer.open({
+                 content:"<span style=\"color:black;\">请输入手机号码</span>"
+                 ,btn: '确定'
+               });
+     return ;
+    }
+    $("#sendBtn").removeAttr("onclick");
     $.ajax({
-           type:"POST",
-           url: "validCode",
-           data:{"mobile": mobile},
-           cache:false,
-           dataType: "json",
-           success: function(result){
-                   if ("0" != result.code) {
-                       layer.open({
-                                 content:"<span style=\"color:black;\">获取验证码失败</span>"
-                                 ,btn: '确定'
-                               });
-                       return;
-                   } 
-                   var paramEx = result.data.paramEx;
-                   if(paramEx == "0"){
-                       layer.open({
-                                 content:"<span style=\"color:black;\">请输入手机号码</span>"
-                                 ,btn: '确定'
-                               });
-                       return;
-                   }
-                   var  sendError = result.data.sendError;
-                   if(sendError == "0"){
-                       layer.open({
-                                 content:"<span style=\"color:black;\">获取验证码失败</span>"
-                                 ,btn: '确定'
-                               });
-                       return;
-                   }
-                   var  send = result.data.send;
-                   if(send == "1"){  //发送成功
-                       clock = setInterval(doLoop, 1000); //一秒执行一次
-                   }
-                   
-            },
-            error : function() {
-                layer.open({
-                             content:"<span style=\"color:black;\">网络开小差^^</span>"
+       type:"POST",
+       url: "api/getValidCode",
+       data:{"mobile": mobile},
+       cache:false,
+       dataType: "json",
+       success: function(result){
+               if ("200" != result.code) {
+                   layer.open({
+                             content:"<span style=\"color:black;\">获取验证码失败</span>"
                              ,btn: '确定'
                            });
-            }
-        }); 
+                   return;
+               }
+
+               var  send = result.data.send;
+               if(send == "1"){  //发送成功
+                   clock = setInterval(doLoop, 1000); //一秒执行一次
+               }
+
+        },
+        error : function() {
+            layer.open({
+                         content:"<span style=\"color:black;\">网络开小差^^</span>"
+                         ,btn: '确定'
+                       });
+        }
+    });
 }
 
 function doLoop() {
@@ -524,49 +509,48 @@ function  checkValue(){
      return  true;
 }
 //登陆
-function  login(){
- if(checkValue()){
-     var mobile = $("#mobile").val(); 
-     var checkCode = $("#checkCode").val();
-     var channel = activityPO.channelId;
-     //将提交按钮设置为不可点击
-     $("#submitBtn").removeAttr("onclick");
-     $.ajax({
-           type:"POST",
-           url: "login",
-           data:{"actId" : actId , "mobile": mobile , "checkCode" : checkCode ,  "channelID":channel},
-           cache:false,
-           dataType: "json",
-           success: function(result){
+function login(){
+    if(checkValue()){
+        var mobile = $("#mobile").val();
+        var checkCode = $("#checkCode").val();
+        var channel = activityPO.channelId;
+        //将提交按钮设置为不可点击
+        $("#submitBtn").removeAttr("onclick");
+        $.ajax({
+            type:"POST",
+            url: "api/login",
+            data:{"actId" : actId, "mobile": mobile, "checkCode": checkCode, "channelID":channel},
+            cache:false,
+            dataType: "json",
+            success: function(result){
                    //将提交按钮恢复点击
                    $("#submitBtn").attr("onclick" , "login();");
-                   
-                   if ("0" != result.code) {
-                       layer.open({
-                                 content:"<span style=\"color:black;\">提交失败</span>"
-                                 ,btn: '确定'
-                               });
-                       return;
-                   } 
-                   
-                   var  codeNullError = result.data.codeNullError;
-                   if(codeNullError == "0"){
+
+
+                   if("807" == result.code){
                        layer.open({
                                  content:"<span style=\"color:black;\">请重新获取验证码</span>"
                                  ,btn: '确定'
                                });
                        return;
                    }
-                   
-                   var  codeError = result.data.codeError;
-                   if(codeError == "0"){
+
+                   if("806" == result.code){
                        layer.open({
                                  content:"<span style=\"color:black;\">验证码错误</span>"
                                  ,btn: '确定'
                                });
                        return;
                    }
-                  
+
+                   if ("200" != result.code) {
+                       layer.open({
+                                 content:"<span style=\"color:black;\">提交失败</span>"
+                                 ,btn: '确定'
+                               });
+                       return;
+                   }
+
                    openid = result.data.openid;
                     $.cookie(cookieKey , (openid + "," + mobile) , {expires: 365});
                    //保存手机号码
@@ -579,8 +563,8 @@ function  login(){
                              ,btn: '确定'
                            });
             }
-    }); 
- }
+        });
+    }
 }
 
 function isEmpty(message){
@@ -595,38 +579,32 @@ function Hidepop(){
     
 function oksubmit()//提交
 {
-
     $.ajax({
            type:"POST",
-           url: "recordSelect",
+           url: "/api/recordSelect",
            data:{
-                    "tbWxZxdtPO.mobile":login_mobile,
-                    "tbWxZxdtPO.description":description,
+                    "mobile":login_mobile,
+                    "description":description,
            },
            cache:false,
            dataType: "json",
            success: function(result){
-                    var time = result.data.time;
-                       layer.open({
-                            content:"<span style=\"color:black;font-size:20px;\">感谢有您，满意10分！",
-                            btn:"前往抽奖",
-                            shadeClose:false,
-                            yes:function(index){
-                                if(time=="1")
-                                    location.href="lottery?actId=ACT58524";
-                                else if(time=="2")
-                                    location.href="lottery?actId=ACT43992";
-                                else
-                                    location.href="lottery?actId=ACT13347";
-                            }
-                       });
+                   var time = result.data.time;
+                   layer.open({
+                        content:"<span style=\"color:black;font-size:20px;\">感谢有您，满意10分！",
+                        btn:"前往抽奖",
+                        shadeClose:false,
+                        yes:function(index){
+                            location.href="lottery?actId=ACT00002";
+                        }
+                   });
                },
-            error:function(){
+           error:function(){
                 layer.open({
                      content:"网络开小差^^"
                      ,btn: '确定'
                    });
-            }
+           }
         });                      
  }
 
@@ -694,41 +672,7 @@ function oknext()
     var value=tmid +"<2>";
     var selvalue=",";
     if(VOTERTYPE==1||VOTERTYPE==2)//单选和多选
-    {   
-        //若用户第一题选择A，则直接跳转
-        /*if($("#an_0_0").hasClass("voter_sel")){
-            $.ajax({
-               type:"POST",
-               url: "/zzydwap/zxdt/zxdtAction!checktime.action",
-               cache:false,
-               dataType: "json",
-               success: function(result){
-                        var time = result.data.time;
-                           layer.open({
-                                content:"<span style=\"color:black;\">感谢有您，满意10分</span>",
-                                btn:"前往抽奖",
-                                shadeClose:false,
-                                yes:function(index){
-                                    if(time=="1")
-                                        location.href="lottery?actId=ACT40396";
-                                    else if(time=="2")
-                                        location.href="lottery?actId=ACT79177";
-                                    else
-                                        location.href="lottery?actId=ACT44888";
-                                }
-                           });
-                   },
-                error:function(){
-                    layer.open({
-                         content:"网络开小差^^"
-                         ,btn: '确定'
-                       });
-                }
-            });                      
-       
-            return false;
-        }*/
-
+    {
         //记录用户选项
         var olis=$("#select_"+nowshow).children() ;
         var selcount=0;
@@ -739,11 +683,9 @@ function oknext()
                 if (nowshow == 1){
                     description += $("#an_" + nowshow + "_" + i + "").find(".pull-right").children().text()+";";
                 }
-                
             }
         }
         if(selcount==0){
-
             layer.open({
                 content:"<span style=\"color:black;\">您尚未选择任何选项！</span>",
                 btn:"确定",
@@ -839,8 +781,9 @@ function checkform()
     }
     return true;
 }
-    //初始化，显示第一题
-    showtm(0);                
+
+//初始化，显示第一题
+showtm(0);
 
 </script>
 </body>

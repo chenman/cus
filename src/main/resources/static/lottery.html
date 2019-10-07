@@ -208,11 +208,11 @@
 
 	var login_mobile = "";
 	//url必须与请求的URL一致  用于生成 signature
-	var url = "/jsp/wap/act/turntableAct.jsp?actId=ACT43992";
+	var url = "/api/lottery?actId=ACT00002";
 
 	//C_OPENID_+平台ID
 	var cookieKey = "C_OPENID_";
-	var  actId = "ACT43992";
+	var  actId = "ACT00002";
 	var openid="";
 	var  activityPO  = null;
 	var  sharePO =  null;
@@ -237,7 +237,7 @@
 		/* var useragent =  navigator.userAgent ;
 		if (useragent.match(/MicroMessenger/i) != 'MicroMessenger') {
 				 	window.location.href  =  "wxError.jsp";  //";//若不是微信浏览器，跳转到温馨error页面
-		 }else{ */
+		}else{ */
 
 					//加载活动明细
 					getActivityDetail();
@@ -247,7 +247,7 @@
 
 					//加载转盘奖品
 					loadTurntableAwardList();
-	//	 }
+	//	}
 
 	})
 

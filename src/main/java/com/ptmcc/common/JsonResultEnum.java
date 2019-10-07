@@ -10,7 +10,9 @@ public enum JsonResultEnum {
     UNAUTHORIZED(802, "您的权限不足"),
     INVALID_DATA(803, "数据为空或非法"),
     NON_DATA(804, "暂时无数据"),
-    ILLLEGAL(805, "非法操作");
+    ILLLEGAL(805, "非法操作"),
+    INVALID_CODE(806, "验证码错误"),
+    NULL_CODE(807, "数据为空或非法");
 
     /**
      * 获取JsonResult的方法，默认提示
