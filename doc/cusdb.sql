@@ -34,3 +34,13 @@ create table `access` (
 `access_time` datetime default null comment '发送时间',
 index (mobile) using btree
 );
+
+drop table if exists `record`;
+
+create table `record` (
+`act_id` varchar(16) not null comment '活动编码',
+`mobile` varchar(64) not null comment '手机号码',
+`result` varchar(512) comment '参与结果',
+`record_time` datetime default null comment '参与时间',
+index (mobile) using btree
+);
